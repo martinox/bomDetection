@@ -20,7 +20,11 @@ function isUTF8BOM(&$file){
 }
 
 function checkDirectory(&$dir){
-		
+	if(substr($dir, -1) !== '/'){
+		//append slash
+		$dir .= '/';
+	}
+	
 	$dirHandle = opendir($dir);
 
 	if($dirHandle !== false){
