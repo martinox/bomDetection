@@ -1,5 +1,7 @@
 <?php
 define('BOM_STRING', pack("CCC", 0xef, 0xbb, 0xbf));
+$bomDir = dirname(__FILE__);
+
 
 function isUTF8BOM(&$file){
 	$handle = fopen($file);
@@ -24,7 +26,7 @@ function checkDirectory(&$dir){
 		//append slash
 		$dir .= '/';
 	}
-	
+
 	$dirHandle = opendir($dir);
 
 	if($dirHandle !== false){
@@ -55,5 +57,7 @@ function checkDirectory(&$dir){
 
 	}
 }
+
+checkDirectory($bomDir);
 
 ?>
