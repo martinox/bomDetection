@@ -19,4 +19,37 @@ function isUTF8BOM(&$file){
 	return false;
 }
 
+function checkDirectory(&$dir){
+		
+	$dirHandle = opendir($dir);
+
+	if($dirHandle !== false){
+		while(($file = readdir($dirHandle)) !== false){
+			if($file !== '..' && $file !== '.'){
+
+				$fullfilename = $dir.$file;
+
+				if(is_dir($fullfilename) === false){
+					//check file for BOM
+					echo $fullfilename;
+					if(isUTF8BOM($fullfilename) !== false){
+						echo ' contains BOM';
+					}
+					else{
+						echo ' does not contain BOM';
+					}
+					echo PHP_EOL;
+				}
+				else{
+					//check next directory
+					checkDirectory($fullfilename);
+				}
+			}
+		}
+
+		closedir($dirHandle);
+
+	}
+}
+
 ?>
